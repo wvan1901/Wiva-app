@@ -1,15 +1,10 @@
-import { useState } from 'react';
-import Link from 'next/link'
+import react from "react";
 
-// function Header({ title }) {
-//     return <h1>{title ? title : 'Default title'}</h1>;
-// }
-
-export default function HomePage() {
-
-    return (
+export default function home(){
+    return(
         <div>
-            <h1>"Develop. Preview. Ship. 🚀"</h1>
+            <h1>Hello!</h1>
+            <p>This is some random text!</p>
         </div>
-    );
+    )
 }
