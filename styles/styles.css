@@ -1,3 +1,14 @@
 * {
     font-family: monospace;
+    margin:0%;
+}
+
+#Nav {
+    background-color: black;
+}
+
+#Nav p {
+    color: antiquewhite;
+    font: 2em;
+    padding: 0.5em;
 }
