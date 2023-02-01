@@ -4,7 +4,7 @@ export default function Todo({todo, setTodoList, checkTodo}){
         checkTodo(todo.name)
     }
     return(
-        <div>
+        <div className="Todo">
             <input type="checkbox" checked={Todo.isChecked} onChange={onClick}/>
             {todo.name}
         </div>

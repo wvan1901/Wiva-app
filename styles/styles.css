@@ -1,11 +1,13 @@
 * {
     font-family: monospace;
     margin:0%;
+    font-size: 1.1rem;
 }
 
 #Nav {
     background-color: black;
     padding: 1em;
+    /* font-size: 1em; */
 }
 
 #Nav a {
@@ -19,4 +21,27 @@
 
 #Nav a:hover{
     background-color: blue;
+}
+
+#TodoHome{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+#TodoApp{
+    text-align: center;
+}
+#TodoList{
+    text-align: left;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    /* border-style: solid; */
+    
+}
+.Todo{
+    border-style: solid;
+    border-color: #B6C7D6;
+    border-radius: 20px;
+    background-color: #EAF0F6;
 }

@@ -5,8 +5,10 @@ export default function TodoHome(){
     return (
         <div>
             <Nav />
-            <h1>TODO!</h1>
-            <TodoApp />
+            <div id="TodoHome">
+                <h1 align="center">TODO!</h1>
+                <TodoApp />
+            </div>
         </div>
     )
 }

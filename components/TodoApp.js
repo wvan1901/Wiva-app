@@ -38,7 +38,7 @@ export default function TodoApp(){
     }
 
     return(
-        <div>
+        <div id="TodoApp">
             <input type="text" ref={todoNameRef}/>
             <button onClick={addClick}>Add</button>
             <button onClick={clearClick}>Clear</button>
@@ -50,4 +50,5 @@ export default function TodoApp(){
             />
         </div>
     )
+    //Future enhancements: Set up ID, individual trash icon, Visuals, Account login/ save options?, edit text, multiple Lists?
 }
