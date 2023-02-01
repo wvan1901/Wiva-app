@@ -5,10 +5,18 @@
 
 #Nav {
     background-color: black;
+    padding: 1em;
 }
 
-#Nav p {
+#Nav a {
     color: antiquewhite;
     font: 2em;
-    padding: 0.5em;
+    padding: 1em;
+    text-decoration: none;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+#Nav a:hover{
+    background-color: blue;
 }

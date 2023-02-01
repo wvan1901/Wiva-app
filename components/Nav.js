@@ -1,7 +1,10 @@
+import Link from "next/link"
+
 export default function Nav(){
     return(
         <div id="Nav">
-            <p>Home</p>
+            <Link href="/">Home</Link>
+            <Link href="/todo">Todo</Link>
         </div>
     )
 }
