@@ -1,3 +1,4 @@
+/* Displays the Todo with a <input> + todo.name */
 export default function Todo({todo, setTodoList, checkTodo}){
     function onClick(){
         checkTodo(todo.name)

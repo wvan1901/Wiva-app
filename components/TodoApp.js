@@ -1,10 +1,14 @@
 import React, { useRef, useState } from "react";
 import TodoList from "./TodoList";
 
+/****
+    * This is React component that Holds the Todo App
+*****/
 export default function TodoApp(){
     const [todoList, setTodoList] = useState([])
     const todoNameRef = useRef()
 
+    /* On click function for add buttton, checks for duplicate name + empty name*/
     function addClick(e){
         const name= todoNameRef.current.value
         if(name === ""){return}
@@ -19,11 +23,13 @@ export default function TodoApp(){
         todoNameRef.current.value = null
     }
 
+    /* On click funtion for clear button, clears checked todos */
     function clearClick(){
         const newTodoList = todoList.filter(todo => !todo.isChecked)
         setTodoList(newTodoList)
     }
     
+    /* Changes isChecked for todo and updates todoList */
     function checkTodo(name){
         const newTodoList = [...todoList]
         const todo = newTodoList.find(todo => todo.name === name)
