@@ -18,25 +18,32 @@ export default function WivordApp(){
 
     const [curWord, setCurWord] = useState("")
     const [curTry,setCurTry] = useState(0)
+    const [gameStatus, setGameStatus] = useState("Pending")
 
-    function toggleLetter(name){
-        console.log(name)
+    //1) add to currrent Try 2) If try is full compare ans else cont 
+    //3) if ans is correct winner! else next row 4) if out of rows then lost
+    function toggleLetter(theLetter){
+        console.log(theLetter)
         //In the word
-        if(curWord.toUpperCase().includes(name)){
-            letterInWord()
-            return
+        // if(curWord.toUpperCase().includes(theLetter)){
+        //     letterInWord()
+        //     return
+        // }
+        //1)
+        if(curTry >4){return}
+        const newListTry = [...listTry]
+        const newCurRow = newListTry.at(curTry)
+        const newEntry = newCurRow.find(replaceLetter => replaceLetter === "")
+        const i = (index) => (index === "")
+        const emptyIndex = newCurRow.findIndex(i)
+        newCurRow.fill(theLetter, emptyIndex, emptyIndex+1)
+        setListTry(newListTry)
+        //console.log([newCurRow,newEntry,emptyIndex,newListTry])
+        //2)
+        if(emptyIndex>newCurRow.length-2){
+            checkAns()
         }
-        const newListLetters = [...listLetters]
-        const listLetter = newListLetters.find(aLetter => aLetter.letter === name)
-        listLetter.isClicked = !listLetter.isClicked
-        setListLetters(newListLetters)
-        console.log(listLetters)
-
-        //const todo = newTodoList.find(todo => todo.name === name)
-        //todo.isChecked = !todo.isChecked
-        //setTodoList(newTodoList)
-
-        //Check Win
+        
     }
 
     function letterInWord(){
@@ -44,8 +51,38 @@ export default function WivordApp(){
     }
 
     function setBoard(i){
-        const testBoard = Array(5).fill(Array(i).fill(""))
+        //Dont use Array(5).fill(Array(i).fill("")) it creates a array with reference of the same array so  it duplicates
+        //const testBoard = Array(5).fill(Array(i).fill(""))
+        const testBoard = [...new Array(5)].map(() => [...new Array(i)].map(() => ""))
+        //console.log(testBoard)
         setListTry(testBoard)
+    }
+
+    function blockLetter(theLetter){
+        const newListLetters = [...listLetters]
+        const listLetter = newListLetters.find(aLetter => aLetter.letter === theLetter)
+        listLetter.isClicked = !listLetter.isClicked
+        setListLetters(newListLetters)
+        //console.log(listLetters)
+    }
+
+    function checkAns(){
+        console.log("checking Ans")
+        const newListTry = [...listTry]
+        const newCurRow = newListTry.at(curTry)
+        const userAns = newCurRow.join("")
+        if(userAns === curWord){
+            setGameStatus("Won")
+            return
+        }
+        if((userAns !== curWord)&&(curTry === 4)){
+            setGameStatus("Lost")
+        }
+        const newTry = curTry +1
+        setCurTry(newTry)
+        //Block Wrong letters
+        //Blocks Letters not in word
+        newCurRow.forEach(i => {if(!curWord.includes(i)){blockLetter(i)}})
     }
     return(
         <div>
@@ -53,6 +90,8 @@ export default function WivordApp(){
             <SelectWord setCurWord={setCurWord} setBoard={setBoard}/>
             <Game listTry={listTry}/>
             <GameOptions listLetters={listLetters} toggleLetter={toggleLetter}/>
+            <button onClick={checkAns}>Enter</button>
+            {(gameStatus === "Pending") ? <p>Good luck!</p>: ((gameStatus === "Won") ? <p>You Won!</p> : <p>You lost!</p>)}
         </div>
     )
 }

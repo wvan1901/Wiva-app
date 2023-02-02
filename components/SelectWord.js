@@ -7,7 +7,7 @@ export default function SelectWord({setCurWord, setBoard}){
     function genWord(){
         const word = textRef.current.value
         if(word === ""){return}
-        setCurWord(word)
+        setCurWord(word.toUpperCase())
         textRef.current.value = null
         console.log("Word: "+ word)
         setBoard(word.length)
