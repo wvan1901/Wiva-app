@@ -7,8 +7,9 @@ export default function Game({listTry}){
         i++
     }
     return(
-        <div>
-            {listTry.map(row => (row.map(item => <p key={i}>{addI()}{item} | </p>)))}
+        <div id="wivordBoard">
+            {/*listTry.map(row => (row.map(item => <p id={'Cell'+i}key={i}>{addI()}{item} | </p>)))*/}
+            {listTry.map(row => <div class="wivordRow" key={i}>{row.map(item => <p id={'Cell'+i}key={i}>{addI()}{item} | </p>)}</div>)}
         </div>
     )
 }
