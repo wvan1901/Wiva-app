@@ -3,6 +3,11 @@ import Game from "./Game";
 import GameOptions from "./GameOptions";
 import { useState } from "react";
 
+/*
+    https://www.npmjs.com/package/check-if-word?activeTab=readme
+    I have installed npm above to check for words will use eventualy
+*/
+
 export default function WivordApp(){
     const [listLetters, setListLetters] = useState([
         {letter:"A", isClicked:false}, {letter:"B", isClicked:false}, {letter:"C", isClicked:false}, {letter:"D", isClicked:false}, {letter:"E", isClicked:false},
@@ -20,15 +25,10 @@ export default function WivordApp(){
     const [curTry,setCurTry] = useState(0)
     const [gameStatus, setGameStatus] = useState("Pending")
 
-    //1) add to currrent Try 2) If try is full compare ans else cont 
-    //3) if ans is correct winner! else next row 4) if out of rows then lost
+    //1) add to currrent Try 
     function toggleLetter(theLetter){
         console.log(theLetter)
         //In the word
-        // if(curWord.toUpperCase().includes(theLetter)){
-        //     letterInWord()
-        //     return
-        // }
         //1)
         if(curTry >4){return}
         const newListTry = [...listTry]
@@ -39,15 +39,6 @@ export default function WivordApp(){
         newCurRow.fill(theLetter, emptyIndex, emptyIndex+1)
         setListTry(newListTry)
         //console.log([newCurRow,newEntry,emptyIndex,newListTry])
-        //2)
-        if(emptyIndex>newCurRow.length-2){
-            checkAns()
-        }
-        
-    }
-
-    function letterInWord(){
-        console.log("Letter in the word!")
     }
 
     function setBoard(i){
@@ -84,13 +75,24 @@ export default function WivordApp(){
         //Blocks Letters not in word
         newCurRow.forEach(i => {if(!curWord.includes(i)){blockLetter(i)}})
     }
+
+    function delLetter(){
+        if(curWord.length === 0){return}
+        console.log("TODO: Delete Letter")
+        if(listTry.at(curTry).join("").length < 1 ){
+            console.log("Cant delete")
+            return
+        }
+    }
+
     return(
         <div>
             Wivord!
             <SelectWord setCurWord={setCurWord} setBoard={setBoard}/>
-            <Game listTry={listTry}/>
+            <Game listTry={listTry} curWord={curWord}/>
             <GameOptions listLetters={listLetters} toggleLetter={toggleLetter}/>
             <button onClick={checkAns}>Enter</button>
+            <button onClick={delLetter}>Delete</button>
             {(gameStatus === "Pending") ? <p>Good luck!</p>: ((gameStatus === "Won") ? <p>You Won!</p> : <p>You lost!</p>)}
         </div>
     )
