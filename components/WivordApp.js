@@ -108,11 +108,19 @@ export default function WivordApp(){
     /* Purpose: Deletes letter from current try*/
     function delLetter(){
         if(curWord.length === 0){return}
-        console.log("TODO: Delete Letter")
+        //If above curTry max (which is hardcoded to 4) it returns
+        if(curTry >4){return}
+        console.log("Deleting Letter")
         if(listTry.at(curTry).map((item) => item.value).join("").length < 1 ){
             console.log("Cant delete")
             return
         }
+        const newListTry = [...listTry]
+        const newCurRow = newListTry.at(curTry)
+        const emptyIndex = newCurRow.map((item) => item.value).join("").length-1
+        const updatedLetter = {value:"", color:"grey"}
+        newCurRow.fill(updatedLetter,emptyIndex,emptyIndex+1)
+        setListTry(newListTry)
     }
 
     return(
