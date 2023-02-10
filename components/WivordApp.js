@@ -29,11 +29,10 @@ export default function WivordApp(){
     const [curTry,setCurTry] = useState(0)
     const [gameStatus, setGameStatus] = useState("Pending")
 
-    //1) add to currrent Try 
+    /* Purpose: Grabs a letter and adds it to curTry */
     function toggleLetter(theLetter){
         console.log(theLetter)
-        //In the word
-        //1)
+        //If above curTry max (which is hardcoded to 4) it returns
         if(curTry >4){return}
         const newListTry = [...listTry]
         const newCurRow = newListTry.at(curTry)
@@ -44,6 +43,7 @@ export default function WivordApp(){
         setListTry(newListTry)
     }
 
+    /* Purpose: Creates a new board with 5 rows and i colums and fills with default values*/
     function setBoard(i){
         //Dont use Array(5).fill(Array(i).fill("")) it creates a array with reference of the same array so  it duplicates
         //const testBoard = Array(5).fill(Array(i).fill(""))
@@ -55,6 +55,7 @@ export default function WivordApp(){
         setListTry(testBoard)
     }
 
+    /* Purpose: If letter isnt in word then disabled the letter*/
     function blockLetter(theLetter){
         const newListLetters = [...listLetters]
         const listLetter = newListLetters.find(aLetter => aLetter.letter === theLetter)
@@ -62,12 +63,16 @@ export default function WivordApp(){
         setListLetters(newListLetters)
     }
 
+    /* Purpose: When enter is Clicked it checks the answer and colors the appropiate letters and if all correct then sets status to Won
+        then contines to next row until last row and if hast won after last row then status is set to Lost */
     function checkAns(){
         console.log("checking Ans")
+        //Checks if enough letters if not then returns
         if((listTry.at(curTry).map((item) => item.value).join("").length) < curWord.length){
             //console.log("ERROR!")
             return
         }
+        //Checks if answer is correct
         const newListTry = [...listTry]
         const newCurRow = newListTry.at(curTry)
         const userAns = newCurRow.map((item) => item.value).join("")
@@ -82,7 +87,6 @@ export default function WivordApp(){
         }
         const newTry = curTry +1
         setCurTry(newTry)
-        //Block Wrong letters
         //Blocks Letters not in word
         newCurRow.forEach(i => {if(!curWord.includes(i.value)){blockLetter(i.value)}})
         //Change colors
@@ -101,6 +105,7 @@ export default function WivordApp(){
         listTry.map((row) => row.map(i => colorChanger(i)))
     }
 
+    /* Purpose: Deletes letter from current try*/
     function delLetter(){
         if(curWord.length === 0){return}
         console.log("TODO: Delete Letter")
