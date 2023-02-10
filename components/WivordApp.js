@@ -64,21 +64,41 @@ export default function WivordApp(){
 
     function checkAns(){
         console.log("checking Ans")
+        if((listTry.at(curTry).map((item) => item.value).join("").length) < curWord.length){
+            //console.log("ERROR!")
+            return
+        }
         const newListTry = [...listTry]
         const newCurRow = newListTry.at(curTry)
         const userAns = newCurRow.map((item) => item.value).join("")
         if(userAns === curWord){
             setGameStatus("Won")
+            listTry.at(curTry).map(item => item.color = "green")
             return
         }
         if((userAns !== curWord)&&(curTry === 4)){
             setGameStatus("Lost")
+            return
         }
         const newTry = curTry +1
         setCurTry(newTry)
         //Block Wrong letters
         //Blocks Letters not in word
         newCurRow.forEach(i => {if(!curWord.includes(i.value)){blockLetter(i.value)}})
+        //Change colors
+        var letterIndex = 0
+        const colorChanger = (item) => {
+            if(item.value === curWord.charAt(letterIndex)){
+                item.color = "green"
+            } else {
+                if(curWord.includes(item.value) && (item.value.length>0)){
+                    item.color = "yellow"
+                }
+            }
+            letterIndex = (letterIndex < curWord.length-1 )? letterIndex+1:0
+            return item
+        }
+        listTry.map((row) => row.map(i => colorChanger(i)))
     }
 
     function delLetter(){

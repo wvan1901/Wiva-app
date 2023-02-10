@@ -15,7 +15,7 @@ export default function Game({listTry, curWord}){
         return (" "+ color) 
     }
 
-    const checkLetter = (item,row) => {
+    const oldCheckLetter = (item,row) => {
         if(curWord.length === 0){return ""}
         if(item.length === 0){return ""}
 
@@ -33,9 +33,16 @@ export default function Game({listTry, curWord}){
         return ""
     }
 
+    const checkLetter = (item) => {
+        if(curWord.length === 0){return ""}
+        if(item.value.length === 0){return ""}
+
+        return (" "+item.color)
+    }
+
     const renderOptions = (item,row) => {
         return(
-            <p className={"gameOptions"+ checkLetter(item.value,row)} id={'Cell'+i}key={i}>{addI()}{item.value}</p>
+            <p className={"gameOptions"+ checkLetter(item)} id={'Cell'+i}key={i}>{addI()}{item.value}</p>
         )
     }
 
