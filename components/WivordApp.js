@@ -9,6 +9,8 @@ import { useState } from "react";
 */
 
 export default function WivordApp(){
+    //Below is what is used to check if its a word
+    const checkWord = require('check-if-word'),words = checkWord('en');
     const [listLetters, setListLetters] = useState([
         {letter:"A", isClicked:false}, {letter:"B", isClicked:false}, {letter:"C", isClicked:false}, {letter:"D", isClicked:false}, {letter:"E", isClicked:false},
         {letter:"F", isClicked:false}, {letter:"G", isClicked:false}, {letter:"H", isClicked:false}, {letter:"I", isClicked:false}, {letter:"J", isClicked:false},
@@ -28,6 +30,7 @@ export default function WivordApp(){
     const [curWord, setCurWord] = useState("")
     const [curTry,setCurTry] = useState(0)
     const [gameStatus, setGameStatus] = useState("Pending")
+    const [wordStatus, setWordStatus] = useState("Pending")
 
     /* Purpose: Grabs a letter and adds it to curTry */
     function toggleLetter(theLetter){
@@ -67,6 +70,7 @@ export default function WivordApp(){
         then contines to next row until last row and if hast won after last row then status is set to Lost */
     function checkAns(){
         console.log("checking Ans")
+        if(curTry>4){return}
         //Checks if enough letters if not then returns
         if((listTry.at(curTry).map((item) => item.value).join("").length) < curWord.length){
             //console.log("ERROR!")
@@ -76,9 +80,12 @@ export default function WivordApp(){
         const newListTry = [...listTry]
         const newCurRow = newListTry.at(curTry)
         const userAns = newCurRow.map((item) => item.value).join("")
+        //Checks if answer is a word
+        if(!isWord(userAns)){return}
         if(userAns === curWord){
             setGameStatus("Won")
             listTry.at(curTry).map(item => item.color = "green")
+            setCurTry(5)
             return
         }
         if((userAns !== curWord)&&(curTry === 4)){
@@ -108,6 +115,7 @@ export default function WivordApp(){
     /* Purpose: Deletes letter from current try*/
     function delLetter(){
         if(curWord.length === 0){return}
+        setWordStatus("Pending")
         //If above curTry max (which is hardcoded to 4) it returns
         if(curTry >4){return}
         console.log("Deleting Letter")
@@ -123,6 +131,15 @@ export default function WivordApp(){
         setListTry(newListTry)
     }
 
+    /* Checks if given param is a word and returns boolean*/
+    function isWord(wordAns){
+        const isIt = words.check(wordAns)
+        if(isIt){setWordStatus("Pending")}
+        else{setWordStatus("Error")}
+        //return true
+        return isIt
+    }
+
     return(
         <div>
             Wivord!
@@ -132,6 +149,7 @@ export default function WivordApp(){
             <button onClick={checkAns}>Enter</button>
             <button onClick={delLetter}>Delete</button>
             {(gameStatus === "Pending") ? <p>Good luck!</p>: ((gameStatus === "Won") ? <p>You Won!</p> : <p>You lost!</p>)}
+            {(wordStatus === "Pending") ? <p></p>:((wordStatus === "Error") ? <p>Not a Word!</p>:<p></p>)}
         </div>
     )
 }
