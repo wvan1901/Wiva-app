@@ -18,7 +18,11 @@ export default function WivordApp(){
     ])
 
     const [listTry, setListTry] = useState([
-        ["","","","",""],["","","","",""],["","","","",""],["","","","",""],["","","","",""]
+        [{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"}],
+        [{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"}],
+        [{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"}],
+        [{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"}],
+        [{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"},{value:"", color:"grey"}]
     ])
 
     const [curWord, setCurWord] = useState("")
@@ -33,19 +37,21 @@ export default function WivordApp(){
         if(curTry >4){return}
         const newListTry = [...listTry]
         const newCurRow = newListTry.at(curTry)
-        const newEntry = newCurRow.find(replaceLetter => replaceLetter === "")
-        const i = (index) => (index === "")
+        const i = (index) => (index.value === "")
         const emptyIndex = newCurRow.findIndex(i)
-        newCurRow.fill(theLetter, emptyIndex, emptyIndex+1)
+        const updatedLetter = {value:theLetter, color:"grey"}
+        newCurRow.fill(updatedLetter,emptyIndex,emptyIndex+1)
         setListTry(newListTry)
-        //console.log([newCurRow,newEntry,emptyIndex,newListTry])
     }
 
     function setBoard(i){
         //Dont use Array(5).fill(Array(i).fill("")) it creates a array with reference of the same array so  it duplicates
         //const testBoard = Array(5).fill(Array(i).fill(""))
-        const testBoard = [...new Array(5)].map(() => [...new Array(i)].map(() => ""))
-        //console.log(testBoard)
+        const newDefault = () => {
+            const fillerObjects = {value:"", color:"grey"}
+            return fillerObjects
+        }
+        const testBoard = [...new Array(5)].map(() => [...new Array(i)].map(newDefault))
         setListTry(testBoard)
     }
 
@@ -54,14 +60,13 @@ export default function WivordApp(){
         const listLetter = newListLetters.find(aLetter => aLetter.letter === theLetter)
         listLetter.isClicked = !listLetter.isClicked
         setListLetters(newListLetters)
-        //console.log(listLetters)
     }
 
     function checkAns(){
         console.log("checking Ans")
         const newListTry = [...listTry]
         const newCurRow = newListTry.at(curTry)
-        const userAns = newCurRow.join("")
+        const userAns = newCurRow.map((item) => item.value).join("")
         if(userAns === curWord){
             setGameStatus("Won")
             return
@@ -73,13 +78,13 @@ export default function WivordApp(){
         setCurTry(newTry)
         //Block Wrong letters
         //Blocks Letters not in word
-        newCurRow.forEach(i => {if(!curWord.includes(i)){blockLetter(i)}})
+        newCurRow.forEach(i => {if(!curWord.includes(i.value)){blockLetter(i.value)}})
     }
 
     function delLetter(){
         if(curWord.length === 0){return}
         console.log("TODO: Delete Letter")
-        if(listTry.at(curTry).join("").length < 1 ){
+        if(listTry.at(curTry).map((item) => item.value).join("").length < 1 ){
             console.log("Cant delete")
             return
         }
