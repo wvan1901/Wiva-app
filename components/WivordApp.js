@@ -56,6 +56,7 @@ export default function WivordApp(){
         }
         const testBoard = [...new Array(5)].map(() => [...new Array(i)].map(newDefault))
         setListTry(testBoard)
+        resetGame()
     }
 
     /* Purpose: If letter isnt in word then disabled the letter*/
@@ -139,11 +140,25 @@ export default function WivordApp(){
         //return true
         return isIt
     }
+    
+    function resetGame(){
+        const newButtons = [
+            {letter:"A", isClicked:false}, {letter:"B", isClicked:false}, {letter:"C", isClicked:false}, {letter:"D", isClicked:false}, {letter:"E", isClicked:false},
+            {letter:"F", isClicked:false}, {letter:"G", isClicked:false}, {letter:"H", isClicked:false}, {letter:"I", isClicked:false}, {letter:"J", isClicked:false},
+            {letter:"K", isClicked:false}, {letter:"L", isClicked:false}, {letter:"M", isClicked:false}, {letter:"N", isClicked:false}, {letter:"O", isClicked:false},
+            {letter:"P", isClicked:false}, {letter:"Q", isClicked:false}, {letter:"R", isClicked:false}, {letter:"S", isClicked:false}, {letter:"T", isClicked:false},
+            {letter:"U", isClicked:false}, {letter:"V", isClicked:false}, {letter:"W", isClicked:false}, {letter:"X", isClicked:false}, {letter:"Y", isClicked:false},{letter:"Z", isClicked:false}
+        ]
+        setListLetters(newButtons)
+        setCurTry(0)
+        setGameStatus("Pending")
+        setWordStatus("Pending")
+    }
 
     return(
         <div>
             Wivord!
-            <SelectWord setCurWord={setCurWord} setBoard={setBoard}/>
+            <SelectWord setCurWord={setCurWord} setBoard={setBoard} words={words}/>
             <Game listTry={listTry} curWord={curWord}/>
             <GameOptions listLetters={listLetters} toggleLetter={toggleLetter}/>
             <button onClick={checkAns}>Enter</button>
