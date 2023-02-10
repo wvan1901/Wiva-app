@@ -3,7 +3,7 @@
     margin:0%;
     font-size: 1.1rem;
 }
-
+/* Nav Bar */
 #Nav {
     background-color: black;
     padding: 1em;
@@ -23,6 +23,7 @@
     background-color: blue;
 }
 
+/* Todo Page */
 #TodoHome{
     display: flex;
     flex-direction: column;
@@ -45,16 +46,37 @@
     border-radius: 20px;
     background-color: #EAF0F6;
 }
+
+/* Wivord Page */
+#selectWord{
+    display: flex;
+}
+
 .wivordRow{
     display: flex;
+    justify-content: center;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
 }
 
 .gameOptions {
     background-color: lightgray;
     border: 2px solid black;
-    width: 20px;
-    height: 20px;
+    width: 1.1em;
+    height: 1.1em;
     text-align: center;
+    font-size: 1.5em;
+}
+
+#gameButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#WivordOnClick {
+    display: flex;
+    justify-content: center;
 }
 
 .green{

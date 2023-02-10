@@ -157,12 +157,13 @@ export default function WivordApp(){
 
     return(
         <div>
-            Wivord!
             <SelectWord setCurWord={setCurWord} setBoard={setBoard} words={words}/>
             <Game listTry={listTry} curWord={curWord}/>
             <GameOptions listLetters={listLetters} toggleLetter={toggleLetter}/>
-            <button onClick={checkAns}>Enter</button>
-            <button onClick={delLetter}>Delete</button>
+            <div id="WivordOnClick">
+                <button onClick={checkAns}>Enter</button>
+                <button onClick={delLetter}>Delete</button>
+            </div>
             {(gameStatus === "Pending") ? <p>Good luck!</p>: ((gameStatus === "Won") ? <p>You Won!</p> : <p>You lost!</p>)}
             {(wordStatus === "Pending") ? <p></p>:((wordStatus === "Error") ? <p>Not a Word!</p>:<p></p>)}
         </div>

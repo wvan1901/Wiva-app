@@ -31,10 +31,10 @@ export default function SelectWord({setCurWord, setBoard, words}){
     }
 
     return(
-        <div>
-            length:
+        <div id="selectWord">
+            <p>Length of word:</p>
             <input type="number" ref={numberRef} min="4" max="7"/>
-            <button onClick={genWord}>Gen</button>
+            <button onClick={genWord}>Create Word</button>
         </div>
     )
 }
