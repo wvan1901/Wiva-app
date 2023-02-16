@@ -1,5 +1,5 @@
 import Nav from "../../components/Nav"
-import TodoApp from "../../components/TodoApp"
+import TodoApp from "../../components/Todo/TodoApp"
 
 export default function TodoHome(){
     return (

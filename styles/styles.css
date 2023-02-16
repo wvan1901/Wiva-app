@@ -90,3 +90,28 @@
 .yellow{
     background-color: yellow;
 }
+
+/* Store Page color help: https://paletton.com/ | Base: #287659, Triad*/
+#EcomHome {
+    display: flex;
+}
+
+#SideNav{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #287659;
+}
+
+#SideNav a {
+    color: antiquewhite;
+    font: 2em;
+    padding: 1em;
+    text-decoration: none;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+#SideNav a:hover{
+    background-color: #003c25;
+}

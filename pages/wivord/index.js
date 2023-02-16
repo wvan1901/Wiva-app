@@ -1,5 +1,5 @@
 import Nav from "../../components/Nav"
-import WivordApp from "../../components/WivordApp"
+import WivordApp from "../../components/Wivord/WivordApp"
 
 //API Link: http://random-word-api.herokuapp.com/home
 
